@@ -1,6 +1,16 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 
+// ROLL
+/*
+    Read random traits from contract
+    Produce output
+    Send to component
+*/
+
+
+// MINT
+
 /*
 const nftDrop = useNFTDrop(<ContractAddress>);
 const {
@@ -16,8 +26,6 @@ if (error) {
 
 
 const Mint: NextPage = () => {
-
-
   
     return (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2">
