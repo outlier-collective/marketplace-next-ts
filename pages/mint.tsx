@@ -1,7 +1,9 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 import { useNFTDrop, useNFTs, ThirdwebNftMedia } from "@thirdweb-dev/react";
-import { ethers } from "ethers";
+import { ethers, utils } from "ethers";
+
+import abi from '../contractAbi.json'; 
 
 // TASKS 
 /* 
@@ -47,14 +49,30 @@ const NFT_COLLECTION_ADDRESS = process.env.NFT_COLLECTION_ADDRESS_RINKEBY;
 */
 
 
+
+
 const Mint: NextPage = () => {
 
+    async function getContract() {
+        const PROVIDER_URL = "https://rinkeby.infura.io/v3/";
+        const NFT_COLLECTION_ADDRESS = "0x231679569a0775a9f40dbb096f931a29cdbc2485";
+        const marketplaceContractAbi = abi;
+        const provider = new ethers.providers.JsonRpcProvider(PROVIDER_URL)
+
+        const nftContract = new ethers.Contract(
+            NFT_COLLECTION_ADDRESS,
+            marketplaceContractAbi,
+            provider
+        )
+        
+        console.log(nftContract)
+
+    }
+
+    getContract();
 
     // Use Ethers to get contract
     // 
-
-    
-
     /*
     const nftContract = new ethers.Contract(
         NFT_COLLECTION_ADDRESS,
@@ -62,6 +80,7 @@ const Mint: NextPage = () => {
         provider
     );*/
 
+    // TODO: MAKE PART OF ENV
 
     return (
 
@@ -71,12 +90,6 @@ const Mint: NextPage = () => {
             </a>
 
             <div>
-                {nfts?.map((nft, id) => (
-                    <>
-                    <ThirdwebNftMedia key={id} metadata={nft.metadata} />
-                    <h3>{nft.metadata.name}</h3>
-                    </>
-                ))}
             </div>
             
         </div>
