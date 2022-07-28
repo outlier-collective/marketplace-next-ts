@@ -2,8 +2,9 @@ import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 import { useNFTDrop, useNFTs, ThirdwebNftMedia } from "@thirdweb-dev/react";
 import { ethers, utils } from "ethers";
+import NumericInput from 'react-numeric-input';
 
-import abi from '../contractAbi.json'; 
+import abi from '../contractAbi.json';
 
 // TASKS 
 /* 
@@ -56,6 +57,8 @@ const Mint: NextPage = () => {
     async function getContract() {
         const PROVIDER_URL = "https://rinkeby.infura.io/v3/";
         const NFT_COLLECTION_ADDRESS = "0x231679569a0775a9f40dbb096f931a29cdbc2485";
+
+
         const marketplaceContractAbi = abi;
         const provider = new ethers.providers.JsonRpcProvider(PROVIDER_URL)
 
@@ -64,12 +67,14 @@ const Mint: NextPage = () => {
             marketplaceContractAbi,
             provider
         )
-        
-        console.log(nftContract)
+
+        return nftContract
 
     }
 
-    getContract();
+    let contract = getContract();
+
+    console.log(contract.maxMint)
 
     // Use Ethers to get contract
     // 
@@ -84,14 +89,20 @@ const Mint: NextPage = () => {
 
     return (
 
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2">
-            <a className={styles.mainButton}>
-                Mint
-            </a>
+        <div className="w-[100vw] flex justify-center items-center pt-64">
 
-            <div>
+            <div className="text-center">
+                <h2>Mint Starter Kit</h2>
+
+                <div className="w-72 h-72 bg-[#e8e8e8] mb-4"></div>
+
+                <NumericInput min={0} max={100} value={50} className="form-control mb-4 text-black"/>
+
+                <a className={styles.mainButton}>
+                    Mint
+                </a>
             </div>
-            
+
         </div>
     )
 }
